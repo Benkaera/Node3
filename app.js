@@ -1,13 +1,11 @@
-const http = require("http");
-const fs = require("fs");
- 
-http.createServer(function(request, response){
-     
-    fs.readFile("index.html", "utf8", function(error, data){
-                 
-        let message = "Изучаем Node.js"; 
-        let header = "Главная страница";
-        data = data.replace("{header}", header).replace("{message}", message);
-        response.end(data);
-    })
-}).listen(3000);
+const express = require("express");
+  const app = express();
+app.get("/", function(request, response){
+        response.send("<h1>Главная страница</h1>");
+});
+app.use("/about", function(request, response){
+          let id = request.query.id;
+    let userName = request.query.name;
+    response.send("<h1>Информация</h1><p>id=" + id +"</p><p>name=" + userName + "</p>");
+}); 
+app.listen(3000);
