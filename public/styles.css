@@ -1,0 +1,15 @@
+body{ font-family: Verdana; color:rgb(48, 48, 92);}
+
+Применим эти стили на станице index.html:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Главная</title>
+    <meta charset="utf-8" />
+    <link href="public/styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <h1>Главная</h1>
+</body>
+<html>
