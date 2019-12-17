@@ -1,13 +1,19 @@
 const express = require("express");
-  const app = express();
-// создаем парсер для данных в формате json
-const jsonParser = express.json();
-  app.post("/user", jsonParser, function (request, response) {
-    console.log(request.body);
-    if(!request.body) return response.sendStatus(400);
-         response.json(request.body); // отправляем пришедший ответ обратно
+const app = express();
+const userController = require("./controllers/userController.js");
+const homeController = require("./controllers/homeController.js");
+ // определяем Router
+const userRouter = express.Router();
+const homeRouter = express.Router();
+  // определяем маршруты и их обработчики внутри роутера userRouter
+userRouter.use("/create", userController.addUser);
+userRouter.use("/", userController.getUsers);
+app.use("/users", userRouter);
+ // определяем маршруты и их обработчики внутри роутера homeRouter
+homeRouter.get("/about", homeController.about);
+homeRouter.get("/", homeController.index);
+app.use("/", homeRouter);
+ app.use(function (req, res, next) {
+    res.status(404).send("Not Found")
 });
-  app.get("/", function(request, response){
-          response.sendFile(__dirname + "/index.html");
-});
-  app.listen(3000);
+ app.listen(3000);
