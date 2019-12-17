@@ -1,13 +1,18 @@
-
-
-
-const express = require("express");
+var express = require('express');
 var exphbs  = require('express-handlebars');
-const app = express();
+
+var app = express();
+var hbs = exphbs.create({ /* config */ });
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+
+
 const bodyParser = require("body-parser");
 const userRouter = require("./routes/userRouter.js");
 const homeRouter = require("./routes/homeRouter.js");
- app.engine('.hbs', exphbs({extname: '.hbs'}));
+
 app.set("view engine", "hbs");
 app.use(bodyParser.urlencoded({ extended: false }));
  
